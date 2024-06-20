@@ -1,0 +1,203 @@
+WindowManager:
+    MainScreen:
+    FuelStationScreen:
+    NozzleScreen:
+    SummaryScreen:
+    HistoryScreen:
+
+<MainScreen>:
+    name: 'main'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20
+        Button:
+            text: 'Enter Fuel Station Data'
+            font_size: 18
+            size_hint_y: None
+            height: '48dp'
+            on_release: app.root.current = 'fuelstation'
+        Button:
+            text: 'Enter Nozzle Data'
+            font_size: 18
+            size_hint_y: None
+            height: '48dp'
+            on_release: app.root.current = 'nozzles'
+        Button:
+            text: 'View Summary'
+            font_size: 18
+            size_hint_y: None
+            height: '48dp'
+            on_release: app.save_data_and_calculate(); app.root.current = 'summary'
+        Button:
+            text: 'Generate PDF'
+            font_size: 18
+            size_hint_y: None
+            height: '48dp'
+            on_release: app.generate_pdf()
+        Button:
+            text: 'View History'
+            font_size: 18
+            size_hint_y: None
+            height: '48dp'
+            on_release: app.root.current = 'history'
+
+<FuelStationScreen>:
+    name: 'fuelstation'
+    name_input: name_input
+    petrol_tanks_input: petrol_tanks_input
+    gas_tanks_input: gas_tanks_input
+    petrol_tank_amounts_input: petrol_tank_amounts_input
+    gas_tank_amounts_input: gas_tank_amounts_input
+    control_period_start: control_period_start
+    control_period_end: control_period_end
+    initial_petrol_amount: initial_petrol_amount
+    initial_gas_amount: initial_gas_amount
+    received_petrol: received_petrol
+    received_gas: received_gas
+    electronic_sales_petrol: electronic_sales_petrol
+    electronic_sales_gas: electronic_sales_gas
+    end_inventory_petrol: end_inventory_petrol
+    end_inventory_gas: end_inventory_gas
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        TextInput:
+            id: name_input
+            hint_text: 'Fuel Station Name'
+        TextInput:
+            id: petrol_tanks_input
+            hint_text: 'Number of Petrol Tanks'
+            input_filter: 'int'
+        TextInput:
+            id: gas_tanks_input
+            hint_text: 'Number of Gas Tanks'
+            input_filter: 'int'
+        TextInput:
+            id: petrol_tank_amounts_input
+            hint_text: 'Amounts of Petrol in Each Tank (comma separated)'
+        TextInput:
+            id: gas_tank_amounts_input
+            hint_text: 'Amounts of Gas in Each Tank (comma separated)'
+        TextInput:
+            id: control_period_start
+            hint_text: 'Control Period Start (YYYY-MM-DD)'
+        TextInput:
+            id: control_period_end
+            hint_text: 'Control Period End (YYYY-MM-DD)'
+        TextInput:
+            id: initial_petrol_amount
+            hint_text: 'Initial Petrol Amount'
+            input_filter: 'float'
+        TextInput:
+            id: initial_gas_amount
+            hint_text: 'Initial Gas Amount'
+            input_filter: 'float'
+        TextInput:
+            id: received_petrol
+            hint_text: 'Received Petrol Amount'
+            input_filter: 'float'
+        TextInput:
+            id: received_gas
+            hint_text: 'Received Gas Amount'
+            input_filter: 'float'
+        TextInput:
+            id: electronic_sales_petrol
+            hint_text: 'Electronic Sales Petrol'
+            input_filter: 'float'
+        TextInput:
+            id: electronic_sales_gas
+            hint_text: 'Electronic Sales Gas'
+            input_filter: 'float'
+        TextInput:
+            id: end_inventory_petrol
+            hint_text: 'End Inventory Petrol'
+            input_filter: 'float'
+        TextInput:
+            id: end_inventory_gas
+            hint_text: 'End Inventory Gas'
+            input_filter: 'float'
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            spacing: 10
+            Button:
+                text: 'Back'
+                on_release: app.root.current = 'main'
+            Button:
+                text: 'Next'
+                on_release: app.root.current = 'nozzles'
+
+<NozzleScreen>:
+    name: 'nozzles'
+    petrol_nozzles_input: petrol_nozzles_input
+    gas_nozzles_input: gas_nozzles_input
+    petrol_nozzle_sales_input: petrol_nozzle_sales_input
+    gas_nozzle_sales_input: gas_nozzle_sales_input
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        TextInput:
+            id: petrol_nozzles_input
+            hint_text: 'Number of Petrol Nozzles'
+            input_filter: 'int'
+        TextInput:
+            id: gas_nozzles_input
+            hint_text: 'Number of Gas Nozzles'
+            input_filter: 'int'
+        TextInput:
+            id: petrol_nozzle_sales_input
+            hint_text: 'Petrol Nozzle Sales (Initial, Final for each nozzle, comma separated)'
+        TextInput:
+            id: gas_nozzle_sales_input
+            hint_text: 'Gas Nozzle Sales (Initial, Final for each nozzle, comma separated)'
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            spacing: 10
+            Button:
+                text: 'Back'
+                on_release: app.root.current = 'fuelstation'
+            Button:
+                text: 'Save and Calculate'
+                on_release: app.save_data_and_calculate(); app.root.current = 'summary'
+
+<SummaryScreen>:
+    name: 'summary'
+    summary_label: summary_label
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        ScrollView:
+            Label:
+                id: summary_label
+                text: 'Summary'
+                size_hint_y: None
+                height: self.texture_size[1]
+        Button:
+            text: 'Back to Main'
+            size_hint_y: None
+            height: '48dp'
+            on_release: app.root.current = 'main'
+
+<HistoryScreen>:
+    name: 'history'
+    history_label: history_label
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        ScrollView:
+            Label:
+                id: history_label
+                text: 'History'
+                size_hint_y: None
+                height: self.texture_size[1]
+        Button:
+            text: 'Back to Main'
+            size_hint_y: None
+            height: '48dp'
+            on_release: app.root.current = 'main'
